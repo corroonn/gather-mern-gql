@@ -6,8 +6,8 @@ const resolvers = require("./graphql/resolvers");
 require("dotenv/config");
 
 const server = new ApolloServer({
-  typeDefs, //gql query format
-  resolvers, //
+  typeDefs,
+  resolvers,
 });
 
 mongoose
