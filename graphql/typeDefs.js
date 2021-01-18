@@ -1,5 +1,7 @@
 const { gql } = require("apollo-server");
 
+// For specifying graphQL format for requests
+
 module.exports = gql`
   type TeamMember {
     id: ID!
@@ -7,6 +9,7 @@ module.exports = gql`
     title: String!
     description: String!
     createdAt: String!
+    username: String!
   }
   input RegisterInput {
     username: String!
@@ -22,10 +25,17 @@ module.exports = gql`
     createdAt: String!
   }
   type Query {
-    getTeamMember: [TeamMember]
+    getTeamMembers: [TeamMember]
+    getTeamMember(teamMemberId: ID!): TeamMember
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
+    createTeamMember(
+      name: String!
+      title: String!
+      description: String!
+    ): TeamMember
+    deleteTeamMember(teamMemberId: ID!): String!
   }
 `;
