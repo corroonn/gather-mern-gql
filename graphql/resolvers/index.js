@@ -5,4 +5,7 @@ module.exports = {
   Query: {
     ...teamMemberResolvers.Query,
   },
+  Mutation: {
+    ...userResolvers.Mutation,
+  },
 };
