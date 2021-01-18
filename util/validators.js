@@ -1,3 +1,5 @@
+//Validates user input is a real email and that it is not empty
+
 module.exports.validateRegisterInput = (
   username,
   email,

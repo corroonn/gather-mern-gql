@@ -9,6 +9,7 @@ const {
 } = require("../../util/validators");
 const User = require("../../models/User");
 
+//Create token using the jwt package.
 function generateToken(user) {
   return jwt.sign(
     {
