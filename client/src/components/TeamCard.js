@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Image } from "semantic-ui-react";
+import { Button, Card, Icon, Image } from "semantic-ui-react";
 import moment from "moment";
 
 export default function TeamCard({
@@ -23,6 +23,14 @@ export default function TeamCard({
         <Icon name="user" />
         {title}
       </Card.Content>
+      <div className="ui two buttons">
+        <Button basic color="red">
+          Delete
+        </Button>
+        <Button basic color="blue">
+          Edit
+        </Button>
+      </div>
     </Card>
   );
 }
