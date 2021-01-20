@@ -23,14 +23,16 @@ export default function TeamCard({
         <Icon name="user" />
         {title}
       </Card.Content>
-      <div className="ui two buttons">
-        <Button basic color="red">
-          Delete
-        </Button>
-        <Button basic color="blue">
-          Edit
-        </Button>
-      </div>
+      <Card.Content extra>
+        <div className="ui two buttons">
+          <Button basic color="red">
+            Delete
+          </Button>
+          <Button basic color="blue">
+            Edit
+          </Button>
+        </div>
+      </Card.Content>
     </Card>
   );
 }
