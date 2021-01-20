@@ -5,16 +5,24 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth";
 
 export default function Nav() {
-  const context = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const pathName = window.location.pathname;
   const path = pathName === "/" ? "home" : pathName.substr(1);
   const [activeItem, setActiveItem] = useState(path);
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
-  console.log(context.user);
+  console.log(user);
 
-  return (
+  const menuBar = user ? (
+    <Menu secondary size="massive" color="teal">
+      <Menu.Item name={user.username} active as={Link} to={"/"} />
+
+      <Menu.Menu position="right">
+        <Menu.Item name="logout" onClick={() => logout()} />)
+      </Menu.Menu>
+    </Menu>
+  ) : (
     <Menu secondary size="massive" color="teal">
       <Menu.Item
         name="home"
@@ -25,23 +33,13 @@ export default function Nav() {
       />
 
       <Menu.Menu position="right">
-        {context.user === null ? (
-          <Menu.Item
-            name="login"
-            active={activeItem === "login"}
-            onClick={handleItemClick}
-            as={Link}
-            to={"/login"}
-          />
-        ) : (
-          <Menu.Item
-            name="logout"
-            active={activeItem === "home"}
-            onClick={() => context.logout()}
-            as={Link}
-            to={"/login"}
-          />
-        )}
+        <Menu.Item
+          name="login"
+          active={activeItem === "login"}
+          onClick={handleItemClick}
+          as={Link}
+          to={"/login"}
+        />
 
         <Menu.Item
           name="register"
@@ -53,4 +51,6 @@ export default function Nav() {
       </Menu.Menu>
     </Menu>
   );
+
+  return menuBar;
 }
