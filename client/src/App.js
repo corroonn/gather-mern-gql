@@ -7,6 +7,7 @@ import "./App.css";
 
 import { AuthProvider } from "./context/auth";
 import AuthRoute from "./util/AuthRoute";
+import AuthReqRoute from "./util/AuthReqRoute";
 
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
@@ -20,8 +21,8 @@ function App() {
       <Router>
         <Container>
           <Nav />
-          <AuthRoute exact path="/" component={Home} />
-          <Route exact path="/app" component={AppHome} />
+          <Route exact path="/" component={Home} />
+          <AuthReqRoute exact path="/app" component={AppHome} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/register" component={Register} />
         </Container>

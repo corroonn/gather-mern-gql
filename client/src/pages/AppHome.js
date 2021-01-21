@@ -68,9 +68,9 @@ export default function AppHome() {
 
   return (
     <>
-      <Grid columns={12} divided>
+      <Grid centered columns={12} divided>
         <Grid.Row stretched>
-          <Grid.Column width={8}>
+          <Grid.Column width={6}>
             <Form
               onSubmit={onSubmit}
               noValidate
@@ -117,7 +117,7 @@ export default function AppHome() {
             </Form>
           </Grid.Column>
 
-          <Grid.Column width={4}>
+          <Grid.Column width={6}>
             <Card>
               <Image
                 src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
@@ -143,7 +143,7 @@ export default function AppHome() {
           {loading ? (
             <div>loading team..</div>
           ) : (
-            <Card.Group>{displayTeams}</Card.Group>
+            <Card.Group itemsPerRow={4}>{displayTeams}</Card.Group>
           )}
         </Grid.Row>
       </Grid>
