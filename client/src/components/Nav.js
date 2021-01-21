@@ -12,14 +12,17 @@ export default function Nav() {
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
-  console.log(user);
-
   const menuBar = user ? (
     <Menu secondary size="massive" color="teal">
-      <Menu.Item name={user.username} active as={Link} to={"/"} />
+      <Menu.Item name={user.username} active as={Link} to={"/app"} />
 
       <Menu.Menu position="right">
-        <Menu.Item name="logout" onClick={() => logout()} />)
+        <Menu.Item
+          name="logout"
+          onClick={() => logout()}
+          as={Link}
+          to={"/login"}
+        />
       </Menu.Menu>
     </Menu>
   ) : (

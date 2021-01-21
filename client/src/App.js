@@ -12,6 +12,7 @@ import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AppHome from "./pages/AppHome";
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       <Router>
         <Container>
           <Nav />
-          <Route exact path="/" component={Home} />
+          <AuthRoute exact path="/" component={Home} />
+          <Route exact path="/app" component={AppHome} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/register" component={Register} />
         </Container>
