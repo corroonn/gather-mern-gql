@@ -1,5 +1,6 @@
-const { AuthenticationError } = require("apollo-server");
+const { AuthenticationError, UserInputError } = require("apollo-server");
 
+const { validateTeamMemberInputs } = require("../../util/validators");
 const TeamMember = require("../../models/TeamMember");
 const checkAuth = require("../../util/check-auth");
 
@@ -31,9 +32,14 @@ module.exports = {
   Mutation: {
     async createTeamMember(_, { name, title, description }, context) {
       const user = checkAuth(context);
+      const { errors, valid } = validateTeamMemberInputs(
+        name,
+        title,
+        description
+      );
 
-      if (args.body.trim() === "") {
-        throw new Error("Post body must not be empty");
+      if (!valid) {
+        throw new UserInputError("Errors", { errors });
       }
 
       const newTeamMember = new TeamMember({

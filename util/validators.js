@@ -42,3 +42,20 @@ module.exports.validateLoginInput = (username, password) => {
     valid: Object.keys(errors).length < 1,
   };
 };
+
+module.exports.validateTeamMemberInputs = (name, title, description) => {
+  const errors = {};
+  if (name.trim() === "") {
+    errors.name = "Username must not be empty.";
+  }
+  if (title.trim() === "") {
+    errors.title = "Title must not be empty.";
+  }
+  if (description === "") {
+    errors.description = "Description must not be empty";
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1,
+  };
+};
