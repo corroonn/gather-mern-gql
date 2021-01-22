@@ -49,7 +49,7 @@ function AuthProvider(props) {
     });
   }
 
-  function logout() {
+  function logout(props) {
     localStorage.removeItem("token");
     dispatch({
       type: "LOGOUT",
