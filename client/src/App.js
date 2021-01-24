@@ -13,7 +13,7 @@ import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AppHome from "./pages/AppHome";
+import TriggrHome from "./pages/TriggrHome";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Container>
           <Nav />
           <Route exact path="/" component={Home} />
-          <AuthReqRoute exact path="/app" component={AppHome} />
+          <AuthReqRoute exact path="/app" component={TriggrHome} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/register" component={Register} />
         </Container>
