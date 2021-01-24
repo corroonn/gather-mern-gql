@@ -11,6 +11,17 @@ module.exports = gql`
     createdAt: String!
     username: String!
   }
+  type Triggr {
+    id: ID!
+    name: String!
+    count: Int!
+    lastEventTime: String!
+    lastLocation: String!
+    url: String!
+    status: Boolean!
+    createdAt: String!
+    username: String!
+  }
   input RegisterInput {
     username: String!
     password: String!
@@ -27,6 +38,8 @@ module.exports = gql`
   type Query {
     getTeamMembers: [TeamMember]
     getTeamMember(teamMemberId: ID!): TeamMember
+    getTriggrs: [Triggr]
+    getTriggr(triggrId: ID!): Triggr
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
@@ -36,6 +49,14 @@ module.exports = gql`
       title: String!
       description: String!
     ): TeamMember
+    createTriggr(name: String!): Triggr
     deleteTeamMember(teamMemberId: ID!): String!
+    deleteTriggr(triggrId: ID!): String!
+    editTriggr(
+      triggrId: ID!
+      name: String!
+      metaData: String!
+      url: String!
+    ): Triggr
   }
 `;
