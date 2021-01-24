@@ -38,6 +38,18 @@ module.exports = {
     async createTriggr(_, { name }, context) {
       const user = checkAuth(context);
 
+      const { errors, valid } = validateTriggrInputs(name);
+
+      if (!valid) {
+        throw new UserInputError("Errors", { errors });
+      }
+
+      const triggrNameExists = await Triggr.findOne({ name });
+      if (triggrNameExists) {
+        errors.nameExists = "This name exists";
+        throw new UserInputError("Errors", { errors });
+      }
+
       const newTriggr = new Triggr({
         name,
         count: 0,

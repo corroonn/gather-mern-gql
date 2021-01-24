@@ -59,3 +59,14 @@ module.exports.validateTeamMemberInputs = (name, title, description) => {
     valid: Object.keys(errors).length < 1,
   };
 };
+
+module.exports.validateTriggrInputs = (name) => {
+  const errors = {};
+  if (name.trim() === "") {
+    errors.username = "Name must not be empty.";
+  }
+  return {
+    errors,
+    valid: Object.keys(errors).length < 1,
+  };
+};
