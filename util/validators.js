@@ -65,6 +65,7 @@ module.exports.validateTriggrInputs = (name) => {
   if (name.trim() === "") {
     errors.username = "Name must not be empty.";
   }
+
   return {
     errors,
     valid: Object.keys(errors).length < 1,
