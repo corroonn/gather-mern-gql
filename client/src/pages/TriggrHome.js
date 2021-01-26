@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Button, Form, Grid, Message } from "semantic-ui-react";
+import { Button, Form, Grid, Message, Table } from "semantic-ui-react";
 
 import { useForm } from "../util/hooks";
 
@@ -10,7 +10,7 @@ export default function TriggrHome() {
   const [displayTriggrs, setTriggrs] = useState("");
   const [errors, setErrors] = useState({});
 
-  const { onChange, onSubmit, values } = useForm(createTriggrsCallback, {
+  const { onChange, onSubmit, values } = useForm(createTriggrCallback, {
     name: "",
   });
 
@@ -23,9 +23,6 @@ export default function TriggrHome() {
       data.getTriggrs = [result.data.createTriggr, ...data.getTriggrs];
       console.log(data.getTriggrs);
       proxy.writeQuery({ query: FETCH_TRIGGRS_QUERY, data });
-      values.name = "";
-      values.title = "";
-      values.description = "";
       setErrors("");
     },
     onError(err) {
@@ -33,8 +30,9 @@ export default function TriggrHome() {
     },
   });
 
-  function createTriggrsCallback() {
+  function createTriggrCallback() {
     createTriggr();
+    values.name = "";
   }
 
   const displayErrors = Object.values(errors).map((anError) => (
@@ -45,7 +43,32 @@ export default function TriggrHome() {
     if (!loading) {
       const { getTriggrs: Triggrs } = data;
       const triggrList = Triggrs.map((result) => (
-        <li key={result.id}>{result.name}</li>
+        <Table.Row key={result.id}>
+          <Table.Cell>{result.name}</Table.Cell>
+          <Table.Cell>{result.count}</Table.Cell>
+          <Table.Cell>{result.lastEventTime}</Table.Cell>
+          <Table.Cell>{result.lastLocation}</Table.Cell>
+          <Table.Cell>{result.url}</Table.Cell>
+          <Table.Cell>
+            {result.status === false ? (
+              <Button basic disabled color="grey">
+                Off
+              </Button>
+            ) : (
+              <Button basic color="green">
+                On
+              </Button>
+            )}
+          </Table.Cell>
+          <Table.Cell>
+            <Button basic color="red">
+              Delete
+            </Button>
+            <Button basic color="blue">
+              Edit
+            </Button>
+          </Table.Cell>
+        </Table.Row>
       ));
       setTriggrs(triggrList);
     }
@@ -53,9 +76,10 @@ export default function TriggrHome() {
 
   return (
     <>
-      <Grid centered columns={12} divided>
+      <Grid columns={12} divided>
         <Grid.Row stretched>
           <Grid.Column width={6}>
+            <h1>Create a new triggr.</h1>
             <Form
               onSubmit={onSubmit}
               noValidate
@@ -81,17 +105,28 @@ export default function TriggrHome() {
               )}
             </Form>
           </Grid.Column>
-
-          <Grid.Column width={6}>
-            <h3>{values.name}</h3>
-          </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row stretched>
-          <h1>All triggrs</h1>
-        </Grid.Row>
         <Grid.Row>
-          {loading ? <div>loading triggrs..</div> : <ul>{displayTriggrs}</ul>}
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>Count</Table.HeaderCell>
+                <Table.HeaderCell>Last Date / Time</Table.HeaderCell>
+                <Table.HeaderCell>Last Location</Table.HeaderCell>
+                <Table.HeaderCell>Url</Table.HeaderCell>
+                <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            {loading ? (
+              <Table.Body>loading...</Table.Body>
+            ) : (
+              <Table.Body>{displayTriggrs}</Table.Body>
+            )}
+          </Table>
         </Grid.Row>
       </Grid>
     </>
